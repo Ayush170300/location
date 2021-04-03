@@ -18,12 +18,7 @@ function App() {
   
     useEffect(() => {
       
-    
-
-    
-  
-    
-    const Maps=async(latitude,longitude)=>{
+  const Maps=async(latitude,longitude)=>{
       const loader = new Loader({
         apiKey: "AIzaSyDlUbN769qMWRpTifCLPFNXld-9BDjDrsY",
         version: "weekly",
@@ -43,9 +38,7 @@ function App() {
   
     
    
-    
-    
-    const getWeatherData=async(latitude,longitude)=>{
+   const getWeatherData=async(latitude,longitude)=>{
       const {data}= await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=82a4674269ac8f84ea2f4e73ddb3f99e`)
       setName(data.name)
       setIcon(data.weather[0].icon)
