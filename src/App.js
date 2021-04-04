@@ -3,7 +3,7 @@ import {useEffect,useState} from 'react'
 import './App.css';
 import {Row,Col,Button} from 'react-bootstrap'
 import Forecast from "./components/Forecast"
-import Currency from "./components/Currency"
+
 import axios from "axios";
 function App() {
   
@@ -39,7 +39,7 @@ function App() {
     
    
    const getWeatherData=async(latitude,longitude)=>{
-      const {data}= await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=82a4674269ac8f84ea2f4e73ddb3f99e`)
+      const {data}= await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=82a4674269ac8f84ea2f4e73ddb3f99e`)
       setName(data.name)
       setIcon(data.weather[0].icon)
       setTemp(data.main.temp-273.15)
@@ -91,7 +91,7 @@ function App() {
       <Col>
       <div style={{margin:"weatherdiv"}}>
       <div id="map" className="map" style={{height:"300px",width:"400px",margin:"2% 25%" }}></div>
-      <Currency />
+      
       </div>
       
       </Col>
