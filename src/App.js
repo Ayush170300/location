@@ -3,7 +3,8 @@ import {useEffect,useState} from 'react'
 import './App.css';
 import {Row,Col,Button} from 'react-bootstrap'
 import Forecast from "./components/Forecast"
-
+import {getAllInfoByISO} from "iso-country-currency"
+import Currency from "./components/Currency"
 import axios from "axios";
 function App() {
   
@@ -12,7 +13,9 @@ function App() {
   const [lat,setLat]=useState(0)
   const [long,setLong]=useState(0)
   const [show,setshow]=useState(false)
-  const [icon,setIcon]= useState("10d")
+  const [iconf,setIcon]= useState("10d")
+  const [currency,setCurrency]= useState("")
+  const [showcur,setshowcur]=useState(false)
   
   
   
@@ -38,12 +41,7 @@ function App() {
   
     
    
-   const getWeatherData=async(latitude,longitude)=>{
-      const {data}= await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=82a4674269ac8f84ea2f4e73ddb3f99e`)
-      setName(data.name)
-      setIcon(data.weather[0].icon)
-      setTemp(data.main.temp-273.15)
-    }
+ 
       
       const getLocation=()=> {
        
@@ -54,18 +52,31 @@ function App() {
         }
       }
       
-      const showPosition=(position)=> {
+      const showPosition=async(position)=> {
         console.log(position)
-       
+        
         Maps(Number(position.coords.latitude),Number(position.coords.longitude))
         getWeatherData(Number(position.coords.latitude),Number(position.coords.longitude))
         setLat(Number(position.coords.latitude))
         setLong(Number(position.coords.longitude))
       }
+      const getWeatherData=async(latitude,longitude)=>{
+        const {data}= await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=82a4674269ac8f84ea2f4e73ddb3f99e`)
+        setName(data.name)
+        setIcon(data.weather[0].icon)
+        setTemp(data.main.temp-273.15)
+        console.log(data.weather[0].icon)
+        setCurrency(getAllInfoByISO(data.sys.country).currency)
+        
+        
+        
+       
+      }
     
       getLocation()
+      
     
-    }, [lat,long])
+    },[])
     
     
 
@@ -82,7 +93,7 @@ function App() {
       
       <span style={{color:'red'}}>{new Date().toLocaleString()}</span>
       <h2>{cityName}</h2>
-      <p style={{fontSize:"40px",margin:"3% 10%"}}><img  src={"http://openweathermap.org/img/w/"+icon+".png"} alt=""></img>{temp} &#8451;</p>
+      <p style={{fontSize:"40px",margin:"3% 10%"}}><img  src={"http://openweathermap.org/img/w/"+iconf+".png"} alt=""></img>{temp} &#8451;</p>
       <Button variant="outline-success" style={{fontSize:"25px",color:"black"}} onClick={()=>{show===false?setshow(true):setshow(false)}}>Next 3 Days Forecast</Button>
       {show&&<Forecast lat={lat} long={long} />}
       
@@ -91,7 +102,8 @@ function App() {
       <Col>
       <div style={{margin:"weatherdiv"}}>
       <div id="map" className="map" style={{height:"300px",width:"400px",margin:"2% 25%" }}></div>
-      
+      <Button variant="outline-success" style={{fontSize:"25px",color:"black",margin:"2% 25%"}} onClick={()=>{showcur===false?setshowcur(true):setshowcur(false)}}>Currency Exchange</Button>
+      {showcur&&<Currency currency={currency} />}
       </div>
       
       </Col>

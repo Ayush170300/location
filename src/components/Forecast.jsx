@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import {Row,Col} from "react-bootstrap"
+import {Row,Col,ListGroup,ListGroupItem} from "react-bootstrap"
 import {useEffect,useState} from "react"
     
 
@@ -33,23 +33,29 @@ const Forecast = ({lat,long}) => {
        getForecast()
     },[lat,long])
     return (
-        <div>
+        <ListGroup>
+          <ListGroupItem>
             <Row >
-                <Col md={4}><p style={{fontSize:"14px"}}>{date[0]}</p></Col>
-                <Col md={5}><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[0]+".png"} alt=""></img>{weather1}&#8451;</p></Col>
-                <Col md={3}><p style={{fontSize:"12px",lineHeight:"45px"}}>{desc[0]}</p></Col>
+                <Col><p style={{fontSize:"14px"}}>{date[0]}</p></Col>
+                <Col ><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[0]+".png"} alt=""></img>{weather1}&#8451;</p></Col>
+                <Col ><p style={{fontSize:"12px",lineHeight:"45px"}}>{desc[0]}</p></Col>
             </Row>
+            </ListGroupItem>
+            <ListGroupItem>
             <Row >
-                <Col  md={4} ><p style={{fontSize:"14px"}}>{date[1]}</p></Col>
-                <Col md={5} ><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[1]+".png"} alt=""></img>{weather2}&#8451;</p></Col>
-                <Col md={3}><p style={{fontSize:"12px",lineHeight:"40px"}}>{desc[1]}</p></Col>
+                <Col  ><p style={{fontSize:"14px"}}>{date[1]}</p></Col>
+                <Col  ><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[1]+".png"} alt=""></img>{weather2}&#8451;</p></Col>
+                <Col ><p style={{fontSize:"12px",lineHeight:"40px"}}>{desc[1]}</p></Col>
             </Row>
+            </ListGroupItem>
+            <ListGroupItem>
             <Row >
-                <Col  md={4} ><p style={{fontSize:"14px"}}>{date[2]}</p></Col>
-                <Col md={5}><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[2]+".png"} alt=""></img>{weather3}&#8451;</p></Col>
-                <Col md={3}><p style={{fontSize:"12px",lineHeight:"40px"}}>{desc[2]}</p></Col>
+                <Col  ><p style={{fontSize:"14px"}}>{date[2]}</p></Col>
+                <Col ><p style={{fontSize:"14px"}}><img  src={"https://openweathermap.org/img/w/"+icon[2]+".png"} alt=""></img>{weather3}&#8451;</p></Col>
+                <Col ><p style={{fontSize:"12px",lineHeight:"40px"}}>{desc[2]}</p></Col>
             </Row>
-        </div>
+            </ListGroupItem>
+        </ListGroup>
     )
 }
 
